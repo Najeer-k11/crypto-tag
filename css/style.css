@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+  font-family: "Rubik",sans-serif;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  font-family: "Rubik", sans-serif;
+  background: #1d1d1d;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  width: 100%;
+  height: 100vh;
+}
+
+
+.nav-wrapper {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-wrapper h1{
+  margin-right: 15%;
+}
+
+#one{
+  color: rgb(75, 75, 255);
+}
+
+#two{
+  color: rgb(0, 255, 0);
+}
+
+.nav-items{
+  width: 30%;
+  height: 100x;
+  display: grid;
+  gap: 10px;
+  place-content: center;
+  grid-template-columns: 0.5fr 0.5fr 0.5fr ;
+}
+
+a{
+  text-decoration: none;
+  padding: 8px 8px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+}
+
+a:hover{
+  background-color: rgb(38, 38, 230);
+  transition: 0.5s ease-in-out;
+}
+
+a:nth-child(3){
+  background-color: rgb(38, 38, 241);
+}
+
+.wrapper {
+  margin: 0 10%;
+  width: calc(100% - 20%);
+  height: 100vh;
+}
+
+table{
+  width: 100%;
+  height: 100%;
+}
+
+tr {
+  width: 100%;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+tbody {
+  display: grid;
+  grid-template-rows: 1/8fr;
+  gap: 5px;
+}
+
+th{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: rgb(72, 22, 208);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  font-size: 20px;
+  /* border-radius: 8px; */
+  margin-bottom: 5px;
+}
+
+td{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  /* border-radius: 14px; */
+}
