@@ -2,7 +2,7 @@ async function fetchMarketCapDataAndPopulateTable(table) { // Replace 'YOUR_API_
     const url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20&CMC_PRO_API_KEY=cc99ef77-1ee7-4713-87b5-e424aabc1fcb';
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     try {
-        const response = await fetch(url);
+        const response = await fetch(proxyUrl + url);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
