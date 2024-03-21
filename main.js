@@ -1,61 +1,47 @@
+async function fetchMarketCapDataAndPopulateTable(table) { // Replace 'YOUR_API_KEY' with your actual API key
+    const url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20&CMC_PRO_API_KEY=cc99ef77-1ee7-4713-87b5-e424aabc1fcb';
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    try {
+        const response = await fetch(url);
 
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-class DataItem{
-    constructor(name,price,dateAdded,maxSupply){
-        this.name = name ;
-        this.price = price ;
-        this.dateAdded = dateAdded;
-        this.maxSupply = maxSupply;
+        const responseData = await response.json();
+        const cryptocurrencies = responseData.data;
+
+        // Clear existing table content
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+        }
+
+        // Populate table with cryptocurrency data
+        cryptocurrencies.forEach(crypto => {
+            const row = document.createElement('tr');
+            const rowData = [
+                crypto.name,
+                crypto.symbol,
+                `$${crypto.quote.USD.price.toFixed(2)}`,
+                `$${crypto.quote.USD.market_cap.toFixed(2)}`,
+                `$${crypto.quote.USD.volume_24h.toFixed(2)}`,
+                `${crypto.circulating_supply.toFixed(0)} ${crypto.symbol}`
+            ];
+            rowData.forEach(cellData => {
+                const cell = document.createElement('td');
+                cell.textContent = cellData;
+                row.appendChild(cell);
+            });
+            table.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error fetching data:', error);
     }
 }
 
+// Example usage:
+const tableElement = document.getElementById('tb');
 
-
-async function fetchData() {
-    const apiUrl = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=20&CMC_PRO_API_KEY=cc99ef77-1ee7-4713-87b5-e424aabc1fcb';
-
-    try{
-        const res = await fetch(apiUrl) ;
-        if(!res.ok){
-            return [] ;
-        }
-        var dui = res.json() ;
-        var data = [] ;
-        console.log(dui);
-        dui.data.forEach(element => {
-            var cryptoItem = new DataItem(
-                element.name,
-                element.quote.price,
-                element.dateAdded,
-                element.maxSupply
-            );
-            data.push(cryptoItem) ;
-        });
-        return data ;
-    }catch{
-        return [] ;
-    }
-}   
-
-window.addEventListener('DOMContentLoaded',() => {
-
-    
-
-    const tbody = document.getElementById('tbd') ;
-    
-    let data = [] ;
-
-    data = fetchData() ;
-
-
-    for(let i = 0 ; i < data.length ; i++){
-            tbody.innerHTML += `
-            <tr>
-                <td>${i}</td>
-                <td>${data[i].name}</td>
-                <td>${data[i].price}</td>
-                <td>${data[i].maxSupply}</td>
-            </tr>
-        ` ;
-    }
-})
+window.onload = function (){
+    fetchMarketCapDataAndPopulateTable(tableElement);
+}
